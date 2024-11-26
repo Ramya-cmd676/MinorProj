@@ -64,7 +64,7 @@ npm install
 
 1. In the `server` directory, create a `database.sqlite` file that SQLite will use as the database.
    ```bash
-   touch database.sqlite
+   echo database.sqlite
    ```
 
 2. **Set up the table structure**:
