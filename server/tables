@@ -2,7 +2,12 @@
 CREATE TABLE users (
     userid INTEGER PRIMARY KEY AUTOINCREMENT,
     username TEXT NOT NULL,
+    name TEXT NOT NULL,
     password TEXT NOT NULL,
     email TEXT NOT NULL
 );
+```
+
+```sql
+insert into users(username,name,password,email) values ('first', 'first', 'first', 'first@gmail.com'); 
 ```
