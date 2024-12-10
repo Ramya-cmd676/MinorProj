@@ -11,3 +11,39 @@ CREATE TABLE users (
 ```sql
 insert into users(username,name,password,email) values ('first', 'first', 'first', 'first@gmail.com'); 
 ```
+
+```sql
+-- Table to store courses
+CREATE TABLE courses (
+    courseid INTEGER PRIMARY KEY AUTOINCREMENT,
+    coursename TEXT NOT NULL,
+    description TEXT,
+    link TEXT NOT NULL
+);
+
+-- Table to store user preferences (info collected via bot)
+CREATE TABLE user_preferences (
+    userid INTEGER NOT NULL,
+    preference TEXT NOT NULL,
+    last_updated DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (userid) REFERENCES users(userid)
+);
+
+-- Table to store recommendations for users
+CREATE TABLE recommendations (
+    recommendationid INTEGER PRIMARY KEY AUTOINCREMENT,
+    userid INTEGER NOT NULL,
+    courseid INTEGER NOT NULL,
+    recommended_on DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (userid) REFERENCES users(userid),
+    FOREIGN KEY (courseid) REFERENCES courses(courseid)
+);
+
+-- Table for internal exam dates
+CREATE TABLE user_calendar (
+    userid INTEGER NOT NULL,
+    event_date DATE NOT NULL,
+    event_description TEXT,
+    FOREIGN KEY (userid) REFERENCES users(userid)
+);
+```

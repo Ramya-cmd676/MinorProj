@@ -15,21 +15,23 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const cors_1 = __importDefault(require("cors"));
 const dotenv_1 = __importDefault(require("dotenv"));
-const db_1 = require("./config/db");
+const db_1 = require("./config/db"); // Assuming this function connects to your database
 const loginRoute_1 = __importDefault(require("./routes/loginRoute"));
+const courseRouter_1 = __importDefault(require("./routes/courseRouter")); // Import the course router
 dotenv_1.default.config();
 const app = (0, express_1.default)();
 const PORT = process.env.PORT || 5000;
-// Initialize database and start the server
 (() => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const db = yield (0, db_1.connectDB)();
         console.log('Connected to SQLite database');
         // Make db available throughout the app
         app.locals.db = db;
+        // Middleware
         app.use((0, cors_1.default)());
         app.use(express_1.default.json());
-        app.use('/api/login', loginRoute_1.default);
+        app.use('/api/login', loginRoute_1.default); // Set up login route
+        app.use("/api/courses", courseRouter_1.default); // Set up course route
         app.listen(PORT, () => {
             console.log(`Server is running on http://localhost:${PORT}`);
         });

@@ -12,21 +12,17 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.connectDB = void 0;
-const sqlite3_1 = __importDefault(require("sqlite3"));
-const sqlite_1 = require("sqlite");
-const connectDB = () => __awaiter(void 0, void 0, void 0, function* () {
+const express_1 = __importDefault(require("express"));
+const coursesController_1 = require("../controllers/coursesController");
+const router = express_1.default.Router();
+// Route to scrape and store courses
+router.get('/scrape', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const db = yield (0, sqlite_1.open)({
-            filename: "./database.sqlite", // Corrected database file name
-            driver: sqlite3_1.default.Database, // SQLite driver
-        });
-        console.log("Database connection established.");
-        return db;
+        // Call the scrape function and handle the request
+        yield (0, coursesController_1.scrapeAndStoreCourses)(req, res);
     }
     catch (error) {
-        console.error("Error connecting to the database:", error);
-        throw error;
+        res.status(500).json({ error: 'An error occurred while scraping courses.' });
     }
-});
-exports.connectDB = connectDB;
+}));
+exports.default = router;

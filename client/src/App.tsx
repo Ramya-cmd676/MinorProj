@@ -1,12 +1,13 @@
 import React from 'react';
-import Login from './Login';
+import Login from './Login'; // Import Login component
+
 
 const App: React.FC = () => {
   return (
-    <div>
-      <h1>Login Application</h1>
-      <Login />
-    </div>
+      <div className="App">
+        <Login/>
+
+      </div>
   );
 };
 

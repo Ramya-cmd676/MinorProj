@@ -1,21 +1,24 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import Home from './Home';
 
 const Login: React.FC = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [message, setMessage] = useState('');
+  const [isLoggedIn, setIsLoggedIn] = useState(false); // Track login state
 
   const handleLogin = async (event: React.FormEvent) => {
     event.preventDefault();
-  
+
     try {
       const response = await axios.get('http://localhost:5000/api/login', {
         params: { username, password },
       });
-  
+
       if (response.data.success) {
         setMessage('Login successful!');
+        setIsLoggedIn(true); // Set login state to true
       } else {
         setMessage('Invalid username or password.');
       }
@@ -24,7 +27,11 @@ const Login: React.FC = () => {
       setMessage('An error occurred during login. Please try again later.');
     }
   };
-  
+
+  // Conditionally render Home or Login based on login state
+  if (isLoggedIn) {
+    return <Home />;
+  }
 
   return (
     <div>
